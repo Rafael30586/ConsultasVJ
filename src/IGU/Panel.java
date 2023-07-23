@@ -7,6 +7,10 @@ package IGU;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
@@ -20,11 +24,47 @@ public class Panel extends JPanel implements ActionListener {
 
     
     //Clases internas
-    private class Boton extends JButton{
+    private class Boton extends JButton {
+        
     
     }
     
-    private class CuadroTexto extends JTextField{
+    private class CuadroTexto extends JTextField implements FocusListener{
+        
+        CuadroTexto(){
+            this.setBorder(null);
+            this.addFocusListener(this);
+        
+        }
+
+        @Override
+        public void focusGained(FocusEvent e) {
+            if(temaOscuro){
+                this.setBorder(ConstantesApariencia.BORDE_EVENTO_ENFOQUE_TO);
+                this.setBackground(ConstantesApariencia.FONDO_TEMA_OSCURO);
+                this.setForeground(ConstantesApariencia.COLOR_COMPONENTES_TO);
+            }else if(!temaOscuro){
+                this.setBorder(ConstantesApariencia.BORDE_EVENTO_ENFOQUE_TC);
+                this.setBackground(ConstantesApariencia.FONDO_TEMA_CLARO);
+                this.setForeground(ConstantesApariencia.COLOR_COMPONENTES_TC);
+            }
+            
+        }
+
+        @Override
+        public void focusLost(FocusEvent e) {
+            this.setBorder(null);
+            if(temaOscuro){
+                this.setBackground(ConstantesApariencia.FONDO_CUADRO_TEXTO_TO);
+                this.setForeground(Color.white);
+            
+            }else if(!temaOscuro){
+                this.setBackground(ConstantesApariencia.FONDO_CUADRO_TEXTO_TC);
+                this.setForeground(ConstantesApariencia.FONDO_TEMA_OSCURO);
+            
+            }
+            
+        }
     
     }
     
@@ -96,6 +136,7 @@ public class Panel extends JPanel implements ActionListener {
         botonConsulta.setText("Resultados");
         botonConsulta.setForeground(ConstantesApariencia.FONDO_TEMA_OSCURO);
         botonConsulta.setHorizontalTextPosition((int)CENTER_ALIGNMENT);
+        //botonConsulta.setBorder(null);
         this.add(botonConsulta);
         
         botonApariencia = new Boton();
@@ -103,7 +144,8 @@ public class Panel extends JPanel implements ActionListener {
         botonApariencia.setBackground(ConstantesApariencia.COLOR_COMPONENTES_TO);
         botonApariencia.setText("Aparencia");
         botonApariencia.setForeground(ConstantesApariencia.FONDO_TEMA_OSCURO);
-        botonApariencia.setHorizontalTextPosition((int)CENTER_ALIGNMENT);        
+        botonApariencia.setHorizontalTextPosition((int)CENTER_ALIGNMENT); 
+        //botonApariencia.setBorder(null);
         this.add(botonApariencia);
         botonApariencia.addActionListener(this);
         
@@ -117,10 +159,16 @@ public class Panel extends JPanel implements ActionListener {
                 botonConsulta.setBackground(ConstantesApariencia.COLOR_COMPONENTES_TC);
                 botonApariencia.setBackground(ConstantesApariencia.COLOR_COMPONENTES_TC);
                 cuadroNombreProducto.setBackground(ConstantesApariencia.FONDO_CUADRO_TEXTO_TC);
+                cuadroNombreProducto.setForeground(ConstantesApariencia.FONDO_TEMA_OSCURO);
                 menuNombreProducto.setBackground(ConstantesApariencia.FONDO_CUADRO_TEXTO_TC);
+                menuNombreProducto.setForeground(ConstantesApariencia.FONDO_TEMA_OSCURO);
                 menuPlataforma.setBackground(ConstantesApariencia.FONDO_CUADRO_TEXTO_TC);
-                menuOrden.setBackground(ConstantesApariencia.FONDO_CUADRO_TEXTO_TC);        
+                menuPlataforma.setForeground(ConstantesApariencia.FONDO_TEMA_OSCURO);
+                menuOrden.setBackground(ConstantesApariencia.FONDO_CUADRO_TEXTO_TC);
+                menuOrden.setForeground(ConstantesApariencia.FONDO_TEMA_OSCURO);
                 this.setBackground(ConstantesApariencia.FONDO_TEMA_CLARO);
+                botonConsulta.setForeground(Color.white);
+                botonApariencia.setForeground(Color.white);
                 
                 temaOscuro = false;
             }
@@ -128,10 +176,16 @@ public class Panel extends JPanel implements ActionListener {
                 botonConsulta.setBackground(ConstantesApariencia.COLOR_COMPONENTES_TO);
                 botonApariencia.setBackground(ConstantesApariencia.COLOR_COMPONENTES_TO);
                 cuadroNombreProducto.setBackground(ConstantesApariencia.FONDO_CUADRO_TEXTO_TO);
+                cuadroNombreProducto.setForeground(Color.white);
                 menuNombreProducto.setBackground(ConstantesApariencia.FONDO_CUADRO_TEXTO_TO);
+                menuNombreProducto.setForeground(Color.white);
                 menuPlataforma.setBackground(ConstantesApariencia.FONDO_CUADRO_TEXTO_TO);
-                menuOrden.setBackground(ConstantesApariencia.FONDO_CUADRO_TEXTO_TO);        
+                menuPlataforma.setForeground(Color.white);
+                menuOrden.setBackground(ConstantesApariencia.FONDO_CUADRO_TEXTO_TO); 
+                menuOrden.setForeground(Color.white);
                 this.setBackground(ConstantesApariencia.FONDO_TEMA_OSCURO);
+                botonConsulta.setForeground(ConstantesApariencia.FONDO_TEMA_OSCURO);
+                botonApariencia.setForeground(ConstantesApariencia.FONDO_TEMA_OSCURO);
                 
                 temaOscuro = true;
             
