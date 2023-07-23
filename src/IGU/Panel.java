@@ -142,7 +142,7 @@ public class Panel extends JPanel implements ActionListener {
         botonApariencia = new Boton();
         botonApariencia.setBounds(((ConstantesApariencia.distanciaABorde*3)+(ConstantesApariencia.anchoComponente*2)), ConstantesApariencia.distanciaVertical, ConstantesApariencia.anchoBoton, ConstantesApariencia.alturaComponente);
         botonApariencia.setBackground(ConstantesApariencia.COLOR_COMPONENTES_TO);
-        botonApariencia.setText("Aparencia");
+        botonApariencia.setText("Apariencia");
         botonApariencia.setForeground(ConstantesApariencia.FONDO_TEMA_OSCURO);
         botonApariencia.setHorizontalTextPosition((int)CENTER_ALIGNMENT); 
         //botonApariencia.setBorder(null);
