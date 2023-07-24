@@ -1,17 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
+
 package IGU;
 
 import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 
-/**
- *
- * @author Usuario
- */
 public interface ConstantesApariencia {
     public static final Color FONDO_TEMA_OSCURO = new Color(70,70,70);
     public static final Color FONDO_TEMA_CLARO = new Color(255, 255, 255 );
