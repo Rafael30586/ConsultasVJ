@@ -12,7 +12,7 @@ import java.util.LinkedList;
 
 
 public final class ProductoDAO extends DAO{
-    public LinkedList<Producto> listarJuegos(char opcion, String letras, String filtro, String orden) throws Exception{
+    public LinkedList<Producto> listarJuegosPlataforma(char opcion, String letras, String filtro, String orden) throws Exception{
         String sql=" ";
         Producto videoJuego;
         DesarrolladoraFabricante desarrolladora;
@@ -23,22 +23,25 @@ public final class ProductoDAO extends DAO{
         sql="Select vj.id, vj.nombre, vj.precio, p.nombre, ds.nombre "
         + "from plataforma as p inner join producto as vj on p.id = vj.id_plataforma "
         + "inner join desarrolladora_fabricante as ds on ds.id = vj.id_desarrolladora "
-        + "where plataforma LIKE '"
-        +letras+"%' order by "+orden;
+        + "where vj.nombre LIKE '"
+        +letras+"%' and p.nombre = '"+filtro+"'"
+        + "order by "+orden;
         
         }else if(opcion=='c'){
         sql="Select vj.id, vj.nombre, vj.precio, p.nombre, ds.nombre "
         + "from plataforma as p inner join producto as vj on p.id = vj.id_plataforma "
         + "inner join desarrolladora_fabricante as ds on ds.id = vj.id_desarrolladora "
-        + "where plataforma LIKE '%"
-        +letras+"%' order by "+orden;
+        + "where vj.nombre LIKE '%"
+        +letras+"%' and p.nombre = '"+filtro+"'"
+        + "order by "+orden;
         
         }else if(opcion=='t'){
         sql="Select vj.id, vj.nombre, vj.precio, p.nombre, ds.nombre "
         + "from plataforma as p inner join producto as vj on p.id = vj.id_plataforma "
         + "inner join desarrolladora_fabricante as ds on ds.id = vj.id_desarrolladora "
-        + "where plataforma LIKE '%"
-        +letras+"' order by "+orden;
+        + "where vj.nombre LIKE '%"
+        +letras+"' and p.nombre = '"+filtro+"'"
+        + "order by "+orden;
         
         }else{
             System.out.println("Ha ocurrido un error");
@@ -65,6 +68,63 @@ public final class ProductoDAO extends DAO{
         
         return juegos;
     
+    }
+    
+    public LinkedList<Producto> listarProductos(char opcion,String letras, String orden) throws Exception{
+        String sql=" ";
+        Producto videoJuego;
+        DesarrolladoraFabricante desarrolladora;
+        Plataforma plataforma;
+        LinkedList<Producto> juegos = new LinkedList();
+        
+        if(opcion=='e'){
+        sql="Select vj.id, vj.nombre, vj.precio, p.nombre, ds.nombre "
+        + "from plataforma as p inner join producto as vj on p.id = vj.id_plataforma "
+        + "inner join desarrolladora_fabricante as ds on ds.id = vj.id_desarrolladora "
+        + "where vj.nombre LIKE '"
+        +letras+"%' "
+        + "order by "+orden;
+        
+        }else if(opcion=='c'){
+        sql="Select vj.id, vj.nombre, vj.precio, p.nombre, ds.nombre "
+        + "from plataforma as p inner join producto as vj on p.id = vj.id_plataforma "
+        + "inner join desarrolladora_fabricante as ds on ds.id = vj.id_desarrolladora "
+        + "where vj.nombre LIKE '%"
+        +letras+"%' "
+        + "order by "+orden;
+        
+        }else if(opcion=='t'){
+        sql="Select vj.id, vj.nombre, vj.precio, p.nombre, ds.nombre "
+        + "from plataforma as p inner join producto as vj on p.id = vj.id_plataforma "
+        + "inner join desarrolladora_fabricante as ds on ds.id = vj.id_desarrolladora "
+        + "where vj.nombre LIKE '%"
+        +letras+"' "
+        + "order by "+orden;
+        
+        }else{
+            System.out.println("Ha ocurrido un error");
+        
+        }
+        
+        consultarBase(sql);
+        
+        while(resultado.next()){
+            videoJuego = new Producto();
+            plataforma = new Plataforma();
+            desarrolladora = new DesarrolladoraFabricante();
+            videoJuego.setId(resultado.getInt(1));
+            videoJuego.setNombre(resultado.getString(2));
+            videoJuego.setPrecio(resultado.getDouble(3));
+            plataforma.setNombre(resultado.getString(4));
+            desarrolladora.setNombre(resultado.getString(5));
+            videoJuego.setPlataforma(plataforma);
+            videoJuego.setDesarrolladora(desarrolladora);
+            
+            juegos.add(videoJuego);
+        
+        }
+ 
+        return juegos;
     }
     
 }
