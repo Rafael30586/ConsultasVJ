@@ -1,27 +1,27 @@
 
 package IGU;
 
+import DAO.ProductoDAO;
+import entidades.Producto;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.LinkedList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-/**
- *
- * @author Usuario
- */
+
 public class Panel extends JPanel implements ActionListener {
 
     
     //Clases internas
     private class Boton extends JButton {
         
-    
     }
     
     private class CuadroTexto extends JTextField implements FocusListener{
@@ -29,7 +29,6 @@ public class Panel extends JPanel implements ActionListener {
         CuadroTexto(){
             this.setBorder(null);
             this.addFocusListener(this);
-        
         }
 
         @Override
@@ -67,25 +66,69 @@ public class Panel extends JPanel implements ActionListener {
     
     }
     
+    private class Servicio{
+        ProductoDAO dao = new ProductoDAO();
+        char opcion;
+        LinkedList<Producto> juegos;
+        
+        public LinkedList<Producto> guardarResultados() throws Exception{
+            if(menuNombreProducto.getSelectedItem().equals("Empieza con...")){
+                opcion = 'e';
+            }else if(menuNombreProducto.getSelectedItem().equals("Contiene...")){
+                opcion = 'c';
+            }else if(menuNombreProducto.getSelectedItem().equals("Termina con...")){
+                opcion = 't';
+            }
+            
+            if(menuPlataforma.getSelectedItem().equals("Todas")){
+                juegos = dao
+                        .listarProductos(opcion, cuadroNombreProducto
+                                .getText(), menuOrden
+                                        .getSelectedItem().toString());
+            
+            }else{
+                juegos = dao
+                        .listarJuegosPlataforma(opcion, cuadroNombreProducto
+                                .getText(), menuPlataforma
+                                        .getSelectedItem().toString(), menuOrden
+                                                .getSelectedItem().toString());
+            
+            }
+            return juegos;
+        }
+        
+        public void mostrarResultados() throws Exception{//método incompleto
+            
+            LinkedList<Producto> juegos = guardarResultados();
+            
+            for(Producto j : juegos){
+            
+            }
+        
+        }
+        
+    }
+    
     //Atributos de clase
     
-    private final Desplegable menuNombreProducto;
-    private final CuadroTexto cuadroNombreProducto;
-    private final Desplegable menuPlataforma;
-    private final Desplegable menuOrden;
-    private final Boton botonConsulta;
-    private final Boton botonApariencia;
+    private final Desplegable menuNombreProducto = new Desplegable();
+    private final CuadroTexto cuadroNombreProducto = new CuadroTexto();
+    private final Desplegable menuPlataforma = new Desplegable();
+    private final Desplegable menuOrden = new Desplegable();
+    private final Boton botonConsulta = new Boton();
+    private final Boton botonApariencia = new Boton();
+    private final JFrame ventanaResultados = new JFrame(); // todavía sin usar
+    private final JPanel panelResultados = new JPanel(); // todavía sin usar
     private boolean temaOscuro = true;
     
-    
-    
+   
     //Constructor
     
     public Panel(){
         this.setLayout(null);
         this.setBackground(ConstantesApariencia.FONDO_TEMA_OSCURO);
         
-        menuNombreProducto = new Desplegable();
+        //menuNombreProducto = new Desplegable();
         menuNombreProducto.setBounds(ConstantesApariencia.distanciaABorde, ConstantesApariencia.distanciaABorde, ConstantesApariencia.anchoComponente, ConstantesApariencia.alturaComponente);
         menuNombreProducto.addItem("Empieza con...");
         menuNombreProducto.addItem("Contiene...");
@@ -94,13 +137,13 @@ public class Panel extends JPanel implements ActionListener {
         menuNombreProducto.setForeground(Color.white);
         this.add(menuNombreProducto);
         
-        cuadroNombreProducto = new CuadroTexto();
+        //cuadroNombreProducto = new CuadroTexto();
         cuadroNombreProducto.setBounds(((ConstantesApariencia.distanciaABorde*2)+ConstantesApariencia.anchoComponente), ConstantesApariencia.distanciaABorde, ConstantesApariencia.anchoComponente, ConstantesApariencia.alturaComponente);
         cuadroNombreProducto.setBackground(ConstantesApariencia.FONDO_CUADRO_TEXTO_TO);
         cuadroNombreProducto.setForeground(Color.white);
         this.add(cuadroNombreProducto);
         
-        menuPlataforma = new Desplegable();
+        //menuPlataforma = new Desplegable();
         menuPlataforma.setBounds(((ConstantesApariencia.distanciaABorde*3)+(ConstantesApariencia.anchoComponente*2)), ConstantesApariencia.distanciaABorde, ConstantesApariencia.anchoComponente, ConstantesApariencia.alturaComponente);
         menuPlataforma.addItem("Todas");
         menuPlataforma.addItem("Nintendo Switch");
@@ -116,7 +159,7 @@ public class Panel extends JPanel implements ActionListener {
         menuPlataforma.setForeground(Color.white);        
         this.add(menuPlataforma);
         
-        menuOrden = new Desplegable();
+        //menuOrden = new Desplegable();
         menuOrden.setBounds(((ConstantesApariencia.distanciaABorde*4)+(ConstantesApariencia.anchoComponente*3)), ConstantesApariencia.distanciaABorde, ConstantesApariencia.anchoComponente, ConstantesApariencia.alturaComponente);
         menuOrden.addItem("Alfabético");
         menuOrden.addItem("Plataforma");
@@ -125,7 +168,7 @@ public class Panel extends JPanel implements ActionListener {
         menuOrden.setForeground(Color.white);         
         this.add(menuOrden);
         
-        botonConsulta = new Boton();
+        //botonConsulta = new Boton();
         botonConsulta.setBounds(ConstantesApariencia.distanciaABorde, ConstantesApariencia.distanciaVertical, ConstantesApariencia.anchoBoton, ConstantesApariencia.alturaComponente);
         botonConsulta.setBackground(ConstantesApariencia.COLOR_COMPONENTES_TO);
         botonConsulta.setText("Resultados");
@@ -134,7 +177,7 @@ public class Panel extends JPanel implements ActionListener {
         //botonConsulta.setBorder(null);
         this.add(botonConsulta);
         
-        botonApariencia = new Boton();
+        //botonApariencia = new Boton();
         botonApariencia.setBounds(((ConstantesApariencia.distanciaABorde*3)+(ConstantesApariencia.anchoComponente*2)), ConstantesApariencia.distanciaVertical, ConstantesApariencia.anchoBoton, ConstantesApariencia.alturaComponente);
         botonApariencia.setBackground(ConstantesApariencia.COLOR_COMPONENTES_TO);
         botonApariencia.setText("Apariencia");
@@ -146,6 +189,8 @@ public class Panel extends JPanel implements ActionListener {
         
     
     }
+    
+    //Métodos
     
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -186,6 +231,8 @@ public class Panel extends JPanel implements ActionListener {
             
             }
             
+        
+        }else if(e.getSource()==botonConsulta){
         
         }
     }
