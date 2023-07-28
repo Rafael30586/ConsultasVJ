@@ -176,6 +176,7 @@ public class Panel extends JPanel implements ActionListener {
         botonConsulta.setHorizontalTextPosition((int)CENTER_ALIGNMENT);
         //botonConsulta.setBorder(null);
         this.add(botonConsulta);
+        botonConsulta.addActionListener(this);
         
         //botonApariencia = new Boton();
         botonApariencia.setBounds(((ConstantesApariencia.distanciaABorde*3)+(ConstantesApariencia.anchoComponente*2)), ConstantesApariencia.distanciaVertical, ConstantesApariencia.anchoBoton, ConstantesApariencia.alturaComponente);
@@ -233,6 +234,14 @@ public class Panel extends JPanel implements ActionListener {
             
         
         }else if(e.getSource()==botonConsulta){
+            ventanaResultados.setBounds(20,20,400,400);
+            ventanaResultados.setResizable(false);
+            panelResultados.setBackground(this.getBackground());
+            panelResultados.setForeground(botonConsulta.getBackground());
+            ventanaResultados.add(panelResultados);
+            
+            
+            ventanaResultados.setVisible(true);
         
         }
     }
