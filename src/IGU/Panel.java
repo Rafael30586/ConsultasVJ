@@ -2,8 +2,10 @@
 package IGU;
 
 import DAO.ProductoDAO;
+import consultasvj.ConsultasVJ;
 import entidades.Producto;
 import java.awt.Color;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -12,6 +14,7 @@ import java.util.LinkedList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -117,8 +120,9 @@ public class Panel extends JPanel implements ActionListener {
     private final Desplegable menuOrden = new Desplegable();
     private final Boton botonConsulta = new Boton();
     private final Boton botonApariencia = new Boton();
-    private final JFrame ventanaResultados = new JFrame(); // todavía sin usar
-    private final JPanel panelResultados = new JPanel(); // todavía sin usar
+    private final JFrame ventanaResultados = new JFrame(); 
+    private final JPanel panelResultados = new JPanel(); 
+    private final JLabel etiquetaResultados = new JLabel(); //por ahora sin usa
     private boolean temaOscuro = true;
     
    
@@ -234,11 +238,19 @@ public class Panel extends JPanel implements ActionListener {
             
         
         }else if(e.getSource()==botonConsulta){
-            ventanaResultados.setBounds(20,20,400,400);
+            Rectangle r = ConsultasVJ.ventana.getBounds();
+            ventanaResultados.setBounds((int)r.getX(),(int)r.getY()+((int)r.getHeight()),(int)r
+                    .getWidth(),400); //la altura dependerá de los resultados obtenidos
             ventanaResultados.setResizable(false);
             panelResultados.setBackground(this.getBackground());
-            panelResultados.setForeground(botonConsulta.getBackground());
-            ventanaResultados.add(panelResultados);
+            panelResultados.setForeground(botonConsulta.getBackground());//habrá que cambiarlo si...
+            ventanaResultados.add(panelResultados);//... se agrega un JLabel
+            /*
+            ventanaResultados.add(etiquetaResultados); puede convenir usar JTextArea en vez de...
+            etiquetaResultados.setBounds(0,0,(int)r.getWidth(),400); ... JLabel
+            etiquetaResultados.setOpaque(false); Tener en cuenta el método setEditable()
+            */
+                    
             
             
             ventanaResultados.setVisible(true);
