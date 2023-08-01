@@ -14,8 +14,9 @@ import java.util.LinkedList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 
@@ -101,11 +102,36 @@ public class Panel extends JPanel implements ActionListener {
         }
         
         public void mostrarResultados() throws Exception{//método incompleto
+            byte columna = 0;
+            byte fila = 0;
             
             LinkedList<Producto> juegos = guardarResultados();
             
-            for(Producto j : juegos){
+            resultados = new JTable(juegos.size(),5);
             
+            
+            for(Producto j : juegos){ //usaré un switch para setear tabla según columna
+                
+                switch(columna){
+                    case 0: resultados.setValueAt(String.valueOf(j.getId()), fila, columna);
+                    case 1: resultados.setValueAt(j.getNombre(), fila, columna);
+                    case 2: resultados.setValueAt(String.valueOf(j.getPrecio()), fila, columna);
+                    case 3: resultados.setValueAt(j.getDesarrolladora(), fila, columna);
+                    case 4: resultados.setValueAt(j.getPlataforma(), fila, columna);   
+                }
+                
+                resultados.setValueAt(j, ERROR, WIDTH);
+                
+                if(columna==0){
+                    fila++;
+                }
+                
+                if(columna<5){
+                    columna++;
+                }else{
+                    columna = 0;
+                }
+                
             }
         
         }
@@ -122,9 +148,9 @@ public class Panel extends JPanel implements ActionListener {
     private final Boton botonApariencia = new Boton();
     private final JFrame ventanaResultados = new JFrame(); 
     private final JPanel panelResultados = new JPanel(); 
-    private final JLabel etiquetaResultados = new JLabel(); //por ahora sin usa
-    private boolean temaOscuro = true;
-    
+    private JTable resultados; //usar un constructor que acepte...
+    private boolean temaOscuro = true;//...como parámetros la cantidad de columnas...
+    //..y la cantidad de filas dependerá de los resultados de la consulta
    
     //Constructor
     
@@ -243,13 +269,9 @@ public class Panel extends JPanel implements ActionListener {
                     .getWidth(),400); //la altura dependerá de los resultados obtenidos
             ventanaResultados.setResizable(false);
             panelResultados.setBackground(this.getBackground());
-            panelResultados.setForeground(botonConsulta.getBackground());//habrá que cambiarlo si...
-            ventanaResultados.add(panelResultados);//... se agrega un JLabel
-            /*
-            ventanaResultados.add(etiquetaResultados); puede convenir usar JTextArea en vez de...
-            etiquetaResultados.setBounds(0,0,(int)r.getWidth(),400); ... JLabel
-            etiquetaResultados.setOpaque(false); Tener en cuenta el método setEditable()
-            */
+            panelResultados.setForeground(botonConsulta.getBackground());
+            ventanaResultados.add(panelResultados);
+            
                     
             
             

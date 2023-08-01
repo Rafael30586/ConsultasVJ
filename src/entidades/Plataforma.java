@@ -36,6 +36,11 @@ public class Plataforma {
     public void setFabricante(DesarrolladoraFabricante fabricante) {
         this.fabricante = fabricante;
     }
+
+    @Override
+    public String toString() {
+        return this.getNombre();
+    }
     
     
     
