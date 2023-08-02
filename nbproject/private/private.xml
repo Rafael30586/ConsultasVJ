@@ -3,10 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Usuario/Documents/NetBeansProjects/ConsultasVJ/src/DAO/ProductoDAO.java</file>
+            <file>file:/C:/Users/Usuario/Documents/NetBeansProjects/ConsultasVJ/src/entidades/DesarrolladoraFabricante.java</file>
             <file>file:/C:/Users/Usuario/Documents/NetBeansProjects/ConsultasVJ/src/IGU/Panel.java</file>
+            <file>file:/C:/Users/Usuario/Documents/NetBeansProjects/ConsultasVJ/src/entidades/Producto.java</file>
             <file>file:/C:/Users/Usuario/Documents/NetBeansProjects/ConsultasVJ/src/consultasvj/ConsultasVJ.java</file>
             <file>file:/C:/Users/Usuario/Documents/NetBeansProjects/ConsultasVJ/src/DAO/DAO.java</file>
+            <file>file:/C:/Users/Usuario/Documents/NetBeansProjects/ConsultasVJ/src/entidades/Plataforma.java</file>
         </group>
     </open-files>
 </project-private>

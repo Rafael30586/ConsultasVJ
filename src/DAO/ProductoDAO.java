@@ -7,7 +7,6 @@ package DAO;
 import entidades.DesarrolladoraFabricante;
 import entidades.Plataforma;
 import entidades.Producto;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 
@@ -25,7 +24,7 @@ public final class ProductoDAO extends DAO{
         + "inner join desarrolladora_fabricante as ds on ds.id = vj.id_desarrolladora "
         + "where vj.nombre LIKE '"
         +letras+"%' and p.nombre = '"+filtro+"'"
-        + "order by "+orden;
+        + "order by "+orden; //orden tiene que aceptar vj.nombre,p.nombre o ds.nombre
         
         }else if(opcion=='c'){
         sql="Select vj.id, vj.nombre, vj.precio, p.nombre, ds.nombre "

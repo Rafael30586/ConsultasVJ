@@ -16,7 +16,7 @@ public abstract class DAO {
     private final String USER = "root";
     private final String PASSWORD = "root";
     private final String DATABASE = "video_juegos";
-    private final String DRIVER = "com.mysql.jdbc.Driver";   
+    private final String DRIVER = "com.mysql.cj.jdbc.Driver";//`com.mysql.cj.jdbc.Driver'   
 
     protected void conectarBase() throws ClassNotFoundException,SQLException{
         try{
@@ -69,7 +69,7 @@ public abstract class DAO {
         try{
             conectarBase();
             sentencia = conexion.createStatement();
-            sentencia.executeQuery(sql);
+            resultado = sentencia.executeQuery(sql);
         
         }catch(Exception e){
             

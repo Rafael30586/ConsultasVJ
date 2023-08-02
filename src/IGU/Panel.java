@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -74,6 +76,7 @@ public class Panel extends JPanel implements ActionListener {
         ProductoDAO dao = new ProductoDAO();
         char opcion;
         LinkedList<Producto> juegos;
+        String tercerParametro;
         
         public LinkedList<Producto> guardarResultados() throws Exception{
             if(menuNombreProducto.getSelectedItem().equals("Empieza con...")){
@@ -84,18 +87,24 @@ public class Panel extends JPanel implements ActionListener {
                 opcion = 't';
             }
             
+            if(menuOrden.getSelectedItem().toString().equals("Alfabético")){
+                tercerParametro = "vj.nombre";
+            }else if(menuOrden.getSelectedItem().toString().equals("Plataforma")){
+                tercerParametro = "p.nombre";
+            }else{
+                tercerParametro = "ds.nombre";
+            }
+            
             if(menuPlataforma.getSelectedItem().equals("Todas")){
                 juegos = dao
                         .listarProductos(opcion, cuadroNombreProducto
-                                .getText(), menuOrden
-                                        .getSelectedItem().toString());
+                                .getText(), tercerParametro);
             
             }else{
                 juegos = dao
                         .listarJuegosPlataforma(opcion, cuadroNombreProducto
                                 .getText(), menuPlataforma
-                                        .getSelectedItem().toString(), menuOrden
-                                                .getSelectedItem().toString());
+                                        .getSelectedItem().toString(),tercerParametro);
             
             }
             return juegos;
@@ -120,7 +129,7 @@ public class Panel extends JPanel implements ActionListener {
                     case 4: resultados.setValueAt(j.getPlataforma(), fila, columna);   
                 }
                 
-                resultados.setValueAt(j, ERROR, WIDTH);
+                //resultados.setValueAt(j, ERROR, WIDTH);
                 
                 if(columna==0){
                     fila++;
@@ -264,6 +273,7 @@ public class Panel extends JPanel implements ActionListener {
             
         
         }else if(e.getSource()==botonConsulta){
+            Servicio servicio = new Servicio();
             Rectangle r = ConsultasVJ.ventana.getBounds();
             ventanaResultados.setBounds((int)r.getX(),(int)r.getY()+((int)r.getHeight()),(int)r
                     .getWidth(),400); //la altura dependerá de los resultados obtenidos
@@ -272,8 +282,13 @@ public class Panel extends JPanel implements ActionListener {
             panelResultados.setForeground(botonConsulta.getBackground());
             ventanaResultados.add(panelResultados);
             
-                    
+            try {
+                servicio.mostrarResultados();
+            } catch (Exception ex) {
+                Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
+            ventanaResultados.add(resultados);
             
             ventanaResultados.setVisible(true);
         
