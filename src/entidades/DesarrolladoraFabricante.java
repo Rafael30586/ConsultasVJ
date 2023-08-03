@@ -30,7 +30,7 @@ public class DesarrolladoraFabricante {
 
     @Override
     public String toString() {
-        return this.getNombre();
+        return this.getNombre().toUpperCase();
     }
     
     

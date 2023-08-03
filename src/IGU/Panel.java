@@ -110,39 +110,29 @@ public class Panel extends JPanel implements ActionListener {
             return juegos;
         }
         
-        public void mostrarResultados() throws Exception{//método incompleto
-            byte columna = 0;
-            byte fila = 0;
+        public void mostrarResultados() throws Exception{
             
             LinkedList<Producto> juegos = guardarResultados();
             
             resultados = new JTable(juegos.size(),5);
             
+            System.out.println("Tamaño de juegos: "+juegos.size());
             
-            for(Producto j : juegos){ //usaré un switch para setear tabla según columna
+            for(int i=0;i<juegos.size();i++){
                 
-                switch(columna){
-                    case 0: resultados.setValueAt(String.valueOf(j.getId()), fila, columna);
-                    case 1: resultados.setValueAt(j.getNombre(), fila, columna);
-                    case 2: resultados.setValueAt(String.valueOf(j.getPrecio()), fila, columna);
-                    case 3: resultados.setValueAt(j.getDesarrolladora(), fila, columna);
-                    case 4: resultados.setValueAt(j.getPlataforma(), fila, columna);   
+                for(int j=0;j<5;j++){
+                    switch(j){
+                        case 0: resultados.setValueAt(String.valueOf(juegos.get(i).getId()).toUpperCase(),i,j);break;
+                        case 1: resultados.setValueAt(juegos.get(i).getNombre().toUpperCase(), i, j);break;
+                        case 2: resultados.setValueAt(String.valueOf(juegos.get(i).getPrecio()).toUpperCase(),i,j);break;
+                        case 3: resultados.setValueAt(juegos.get(i).getDesarrolladora(), i, j);break;
+                        case 4: resultados.setValueAt(juegos.get(i).getPlataforma(), i, j);break;     
+                    
+                    }
+                    
                 }
-                
-                //resultados.setValueAt(j, ERROR, WIDTH);
-                
-                if(columna==0){
-                    fila++;
-                }
-                
-                if(columna<5){
-                    columna++;
-                }else{
-                    columna = 0;
-                }
-                
             }
-        
+           
         }
         
     }
@@ -157,9 +147,9 @@ public class Panel extends JPanel implements ActionListener {
     private final Boton botonApariencia = new Boton();
     private final JFrame ventanaResultados = new JFrame(); 
     private final JPanel panelResultados = new JPanel(); 
-    private JTable resultados; //usar un constructor que acepte...
-    private boolean temaOscuro = true;//...como parámetros la cantidad de columnas...
-    //..y la cantidad de filas dependerá de los resultados de la consulta
+    private JTable resultados; // Configurar maunalmente el ancho de las columnas
+    private boolean temaOscuro = true;//
+    
    
     //Constructor
     
@@ -275,8 +265,8 @@ public class Panel extends JPanel implements ActionListener {
         }else if(e.getSource()==botonConsulta){
             Servicio servicio = new Servicio();
             Rectangle r = ConsultasVJ.ventana.getBounds();
-            ventanaResultados.setBounds((int)r.getX(),(int)r.getY()+((int)r.getHeight()),(int)r
-                    .getWidth(),400); //la altura dependerá de los resultados obtenidos
+            ventanaResultados.setBounds((int)r.getX(),(int)r.getY()+((int)r.getHeight()),((int)r
+                    .getWidth()+300),400); //la altura dependerá de los resultados obtenidos
             ventanaResultados.setResizable(false);
             panelResultados.setBackground(this.getBackground());
             panelResultados.setForeground(botonConsulta.getBackground());

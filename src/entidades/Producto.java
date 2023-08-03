@@ -54,6 +54,11 @@ public class Producto {
     public void setPlataforma(Plataforma plataforma) {
         this.plataforma = plataforma;
     }
+
+    @Override
+    public String toString() {
+        return this.getNombre();
+    }
     
     
     
