@@ -65,6 +65,8 @@ public final class ProductoDAO extends DAO{
         
         }
         
+        desconectarBase();
+     
         return juegos;
     
     }
@@ -122,6 +124,8 @@ public final class ProductoDAO extends DAO{
             juegos.add(videoJuego);
         
         }
+        
+        desconectarBase();
  
         return juegos;
     }

@@ -115,6 +115,7 @@ public class Panel extends JPanel implements ActionListener {
             LinkedList<Producto> juegos = guardarResultados();
             
             resultados = new JTable(juegos.size(),5);
+            //resultados.setFont(cuadroNombreProducto.getFont());
             
             System.out.println("Tamaño de juegos: "+juegos.size());
             
@@ -132,6 +133,13 @@ public class Panel extends JPanel implements ActionListener {
                     
                 }
             }
+            /*
+            resultados.getColumnModel().getColumn(0).setPreferredWidth(2);
+            resultados.getColumnModel().getColumn(1).setPreferredWidth(15);
+            resultados.getColumnModel().getColumn(2).setPreferredWidth(4);
+            resultados.getColumnModel().getColumn(3).setPreferredWidth(10);
+            resultados.getColumnModel().getColumn(4).setPreferredWidth(10);
+            resultados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);*/
            
         }
         
@@ -267,10 +275,11 @@ public class Panel extends JPanel implements ActionListener {
             Rectangle r = ConsultasVJ.ventana.getBounds();
             ventanaResultados.setBounds((int)r.getX(),(int)r.getY()+((int)r.getHeight()),((int)r
                     .getWidth()+300),400); //la altura dependerá de los resultados obtenidos
-            ventanaResultados.setResizable(false);
-            panelResultados.setBackground(this.getBackground());
-            panelResultados.setForeground(botonConsulta.getBackground());
-            ventanaResultados.add(panelResultados);
+            ventanaResultados.setResizable(true);
+            //panelResultados.setBackground(this.getBackground());
+            //panelResultados.setForeground(botonConsulta.getBackground());
+            //ventanaResultados.add(panelResultados);
+            //ventanaResultados.remove(resultados); da error
             
             try {
                 servicio.mostrarResultados();
@@ -278,6 +287,9 @@ public class Panel extends JPanel implements ActionListener {
                 Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
             }
             
+            resultados.setBackground(this.getBackground());
+            resultados.setForeground(botonConsulta.getBackground());//blanco para tema oscuro...
+                                                                       //...negro para tema claro
             ventanaResultados.add(resultados);
             
             ventanaResultados.setVisible(true);
