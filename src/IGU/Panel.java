@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -77,6 +78,7 @@ public class Panel extends JPanel implements ActionListener {
         char opcion;
         LinkedList<Producto> juegos;
         String tercerParametro;
+        int numeroResultados=0;
         
         public LinkedList<Producto> guardarResultados() throws Exception{
             if(menuNombreProducto.getSelectedItem().equals("Empieza con...")){
@@ -114,6 +116,8 @@ public class Panel extends JPanel implements ActionListener {
             
             LinkedList<Producto> juegos = guardarResultados();
             
+            numeroResultados = juegos.size();
+            
             resultados = new JTable(juegos.size(),5);
             //resultados.setFont(cuadroNombreProducto.getFont());
             
@@ -133,14 +137,12 @@ public class Panel extends JPanel implements ActionListener {
                     
                 }
             }
-            /*
-            resultados.getColumnModel().getColumn(0).setPreferredWidth(2);
-            resultados.getColumnModel().getColumn(1).setPreferredWidth(15);
-            resultados.getColumnModel().getColumn(2).setPreferredWidth(4);
-            resultados.getColumnModel().getColumn(3).setPreferredWidth(10);
-            resultados.getColumnModel().getColumn(4).setPreferredWidth(10);
-            resultados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);*/
+            
            
+        }
+
+        public int getNumeroResultados() {
+            return numeroResultados;
         }
         
     }
@@ -154,7 +156,7 @@ public class Panel extends JPanel implements ActionListener {
     private final Boton botonConsulta = new Boton();
     private final Boton botonApariencia = new Boton();
     private JFrame ventanaResultados = new JFrame(); 
-    private final JPanel panelResultados = new JPanel(); 
+    //private final JPanel panelResultados = new JPanel(); 
     private JTable resultados; // Configurar maunalmente el ancho de las columnas
     private boolean temaOscuro = true;//
     
@@ -272,6 +274,16 @@ public class Panel extends JPanel implements ActionListener {
         
         }else if(e.getSource()==botonConsulta){
             Servicio servicio = new Servicio();
+            try {
+                servicio.mostrarResultados();
+            } catch (Exception ex) {
+                Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            if(servicio.getNumeroResultados()==0){
+                JOptionPane.showMessageDialog(null, "No hay resultados para mostrar");
+            
+            }else{
             ventanaResultados = new JFrame();
             Rectangle r = ConsultasVJ.ventana.getBounds();
             ventanaResultados.setBounds((int)r.getX(),(int)r.getY()+((int)r.getHeight()),((int)r
@@ -282,11 +294,7 @@ public class Panel extends JPanel implements ActionListener {
             //ventanaResultados.add(panelResultados);
             //ventanaResultados.remove(resultados); da error
             
-            try {
-                servicio.mostrarResultados();
-            } catch (Exception ex) {
-                Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            
             
             resultados.setBackground(this.getBackground());
             resultados.setForeground(botonConsulta.getBackground());//blanco para tema oscuro...
@@ -294,7 +302,9 @@ public class Panel extends JPanel implements ActionListener {
             ventanaResultados.add(resultados);
             
             ventanaResultados.setVisible(true);
-        
+            
+            }
+            
         }
     }
     
