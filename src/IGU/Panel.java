@@ -17,17 +17,15 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
 
 public class Panel extends JPanel implements ActionListener {
-
     
     //Clases internas
-    private class Boton extends JButton {
+    private class Boton extends JButton {  
         
     }
     
@@ -137,8 +135,7 @@ public class Panel extends JPanel implements ActionListener {
                     
                 }
             }
-            
-           
+              
         }
 
         public int getNumeroResultados() {
@@ -159,15 +156,13 @@ public class Panel extends JPanel implements ActionListener {
     //private final JPanel panelResultados = new JPanel(); 
     private JTable resultados; // Configurar maunalmente el ancho de las columnas
     private boolean temaOscuro = true;//
-    
-   
+ 
     //Constructor
     
     public Panel(){
         this.setLayout(null);
         this.setBackground(ConstantesApariencia.FONDO_TEMA_OSCURO);
         
-        //menuNombreProducto = new Desplegable();
         menuNombreProducto.setBounds(ConstantesApariencia.distanciaABorde, ConstantesApariencia.distanciaABorde, ConstantesApariencia.anchoComponente, ConstantesApariencia.alturaComponente);
         menuNombreProducto.addItem("Empieza con...");
         menuNombreProducto.addItem("Contiene...");
@@ -176,13 +171,11 @@ public class Panel extends JPanel implements ActionListener {
         menuNombreProducto.setForeground(Color.white);
         this.add(menuNombreProducto);
         
-        //cuadroNombreProducto = new CuadroTexto();
         cuadroNombreProducto.setBounds(((ConstantesApariencia.distanciaABorde*2)+ConstantesApariencia.anchoComponente), ConstantesApariencia.distanciaABorde, ConstantesApariencia.anchoComponente, ConstantesApariencia.alturaComponente);
         cuadroNombreProducto.setBackground(ConstantesApariencia.FONDO_CUADRO_TEXTO_TO);
         cuadroNombreProducto.setForeground(Color.white);
         this.add(cuadroNombreProducto);
         
-        //menuPlataforma = new Desplegable();
         menuPlataforma.setBounds(((ConstantesApariencia.distanciaABorde*3)+(ConstantesApariencia.anchoComponente*2)), ConstantesApariencia.distanciaABorde, ConstantesApariencia.anchoComponente, ConstantesApariencia.alturaComponente);
         menuPlataforma.addItem("Todas");
         menuPlataforma.addItem("Nintendo Switch");
@@ -193,12 +186,11 @@ public class Panel extends JPanel implements ActionListener {
         menuPlataforma.addItem("Playstation 5");
         menuPlataforma.addItem("Xbox One");
         menuPlataforma.addItem("Xbox Series");
-        menuPlataforma.addItem("Móviles");
+        menuPlataforma.addItem("Android");
         menuPlataforma.setBackground(ConstantesApariencia.FONDO_CUADRO_TEXTO_TO);
         menuPlataforma.setForeground(Color.white);        
         this.add(menuPlataforma);
-        
-        //menuOrden = new Desplegable();
+       
         menuOrden.setBounds(((ConstantesApariencia.distanciaABorde*4)+(ConstantesApariencia.anchoComponente*3)), ConstantesApariencia.distanciaABorde, ConstantesApariencia.anchoComponente, ConstantesApariencia.alturaComponente);
         menuOrden.addItem("Alfabético");
         menuOrden.addItem("Plataforma");
@@ -207,30 +199,25 @@ public class Panel extends JPanel implements ActionListener {
         menuOrden.setForeground(Color.white);         
         this.add(menuOrden);
         
-        //botonConsulta = new Boton();
         botonConsulta.setBounds(ConstantesApariencia.distanciaABorde, ConstantesApariencia.distanciaVertical, ConstantesApariencia.anchoBoton, ConstantesApariencia.alturaComponente);
         botonConsulta.setBackground(ConstantesApariencia.COLOR_COMPONENTES_TO);
         botonConsulta.setText("Resultados");
         botonConsulta.setForeground(ConstantesApariencia.FONDO_TEMA_OSCURO);
         botonConsulta.setHorizontalTextPosition((int)CENTER_ALIGNMENT);
-        //botonConsulta.setBorder(null);
         this.add(botonConsulta);
         botonConsulta.addActionListener(this);
         
-        //botonApariencia = new Boton();
         botonApariencia.setBounds(((ConstantesApariencia.distanciaABorde*3)+(ConstantesApariencia.anchoComponente*2)), ConstantesApariencia.distanciaVertical, ConstantesApariencia.anchoBoton, ConstantesApariencia.alturaComponente);
         botonApariencia.setBackground(ConstantesApariencia.COLOR_COMPONENTES_TO);
         botonApariencia.setText("Apariencia");
         botonApariencia.setForeground(ConstantesApariencia.FONDO_TEMA_OSCURO);
         botonApariencia.setHorizontalTextPosition((int)CENTER_ALIGNMENT); 
-        //botonApariencia.setBorder(null);
         this.add(botonApariencia);
         botonApariencia.addActionListener(this);
         
-    
     }
     
-    //Métodos
+    //Método/s
     
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -273,7 +260,7 @@ public class Panel extends JPanel implements ActionListener {
             
         
         }else if(e.getSource()==botonConsulta){
-            Servicio servicio = new Servicio();
+            Servicio servicio = new Servicio(); //probar que servicio sea un atributo de clase
             try {
                 servicio.mostrarResultados();
             } catch (Exception ex) {
@@ -289,12 +276,6 @@ public class Panel extends JPanel implements ActionListener {
             ventanaResultados.setBounds((int)r.getX(),(int)r.getY()+((int)r.getHeight()),((int)r
                     .getWidth()+300),400); //la altura dependerá de los resultados obtenidos
             ventanaResultados.setResizable(true);
-            //panelResultados.setBackground(this.getBackground());
-            //panelResultados.setForeground(botonConsulta.getBackground());
-            //ventanaResultados.add(panelResultados);
-            //ventanaResultados.remove(resultados); da error
-            
-            
             
             resultados.setBackground(this.getBackground());
             resultados.setForeground(botonConsulta.getBackground());//blanco para tema oscuro...
