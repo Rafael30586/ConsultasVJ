@@ -153,7 +153,7 @@ public class Panel extends JPanel implements ActionListener {
     private final Desplegable menuOrden = new Desplegable();
     private final Boton botonConsulta = new Boton();
     private final Boton botonApariencia = new Boton();
-    private final JFrame ventanaResultados = new JFrame(); 
+    private JFrame ventanaResultados = new JFrame(); 
     private final JPanel panelResultados = new JPanel(); 
     private JTable resultados; // Configurar maunalmente el ancho de las columnas
     private boolean temaOscuro = true;//
@@ -272,6 +272,7 @@ public class Panel extends JPanel implements ActionListener {
         
         }else if(e.getSource()==botonConsulta){
             Servicio servicio = new Servicio();
+            ventanaResultados = new JFrame();
             Rectangle r = ConsultasVJ.ventana.getBounds();
             ventanaResultados.setBounds((int)r.getX(),(int)r.getY()+((int)r.getHeight()),((int)r
                     .getWidth()+300),400); //la altura dependerá de los resultados obtenidos

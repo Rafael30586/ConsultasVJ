@@ -23,7 +23,7 @@ public final class ProductoDAO extends DAO{
         + "from plataforma as p inner join producto as vj on p.id = vj.id_plataforma "
         + "inner join desarrolladora_fabricante as ds on ds.id = vj.id_desarrolladora "
         + "where vj.nombre LIKE '"
-        +letras+"%' and p.nombre = '"+filtro+"'"
+        +letras+"%' and p.nombre LIKE '"+filtro+"%'"
         + "order by "+orden; //orden tiene que aceptar vj.nombre,p.nombre o ds.nombre
         
         }else if(opcion=='c'){
@@ -31,7 +31,7 @@ public final class ProductoDAO extends DAO{
         + "from plataforma as p inner join producto as vj on p.id = vj.id_plataforma "
         + "inner join desarrolladora_fabricante as ds on ds.id = vj.id_desarrolladora "
         + "where vj.nombre LIKE '%"
-        +letras+"%' and p.nombre = '"+filtro+"'"
+        +letras+"%' and p.nombre LIKE '"+filtro+"%'"
         + "order by "+orden;
         
         }else if(opcion=='t'){
@@ -39,7 +39,7 @@ public final class ProductoDAO extends DAO{
         + "from plataforma as p inner join producto as vj on p.id = vj.id_plataforma "
         + "inner join desarrolladora_fabricante as ds on ds.id = vj.id_desarrolladora "
         + "where vj.nombre LIKE '%"
-        +letras+"' and p.nombre = '"+filtro+"'"
+        +letras+"' and p.nombre LIKE '"+filtro+"%'"
         + "order by "+orden;
         
         }else{
