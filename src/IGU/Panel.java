@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 
 public class Panel extends JPanel implements ActionListener {
@@ -78,6 +79,8 @@ public class Panel extends JPanel implements ActionListener {
         LinkedList<Producto> juegos;
         String tercerParametro;
         int numeroResultados=0;
+        String encabezado[] = {"ID","Título","Precio en dólares","Desarrolladora","Plataforma"};
+        //DefaultTableModel acepta nombre de columnas y cantidad de filas
         
         public LinkedList<Producto> guardarResultados() throws Exception{
             if(menuNombreProducto.getSelectedItem().equals("Empieza con...")){
@@ -117,9 +120,10 @@ public class Panel extends JPanel implements ActionListener {
             
             numeroResultados = juegos.size();
             
-            resultados = new JTable(juegos.size(),5);
+            //resultados = new JTable(juegos.size(),5);
             //resultados.setFont(cuadroNombreProducto.getFont());
-            resultados.doLayout();
+            resultados = new JTable(new DefaultTableModel(encabezado,juegos.size()));
+            
             
             System.out.println("Tamaño de juegos: "+juegos.size());
             
