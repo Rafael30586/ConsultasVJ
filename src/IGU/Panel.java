@@ -18,6 +18,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
@@ -156,6 +157,7 @@ public class Panel extends JPanel implements ActionListener {
     private JFrame ventanaResultados = new JFrame(); 
     //private final JPanel panelResultados = new JPanel(); 
     private JTable resultados; // Configurar maunalmente el ancho de las columnas
+    private JScrollPane scroll;
     private boolean temaOscuro = true;//
  
     //Constructor
@@ -272,16 +274,19 @@ public class Panel extends JPanel implements ActionListener {
                 JOptionPane.showMessageDialog(null, "No hay resultados para mostrar");
             
             }else{
-            ventanaResultados = new JFrame();
+            ventanaResultados = new JFrame(); //disminuir altura
             Rectangle r = ConsultasVJ.ventana.getBounds();
             ventanaResultados.setBounds((int)r.getX(),(int)r.getY()+((int)r.getHeight()),((int)r
-                    .getWidth()+300),400); //la altura dependerá de los resultados obtenidos
+                    .getWidth()+300),300); //la altura dependerá de los resultados obtenidos
             ventanaResultados.setResizable(true);
             
             resultados.setBackground(this.getBackground());
-            resultados.setForeground(botonConsulta.getBackground());//blanco para tema oscuro...
-                                                                       //...negro para tema claro
-            ventanaResultados.add(resultados);
+            resultados.setForeground(botonConsulta.getBackground());
+            
+            scroll = new JScrollPane(resultados);
+            
+            ventanaResultados.add(scroll);
+            //ventanaResultados.add(resultados);
             
             ventanaResultados.setVisible(true);
             
