@@ -118,6 +118,7 @@ public class Panel extends JPanel implements ActionListener {
             
             resultados = new JTable(juegos.size(),5);
             //resultados.setFont(cuadroNombreProducto.getFont());
+            resultados.doLayout();
             
             System.out.println("Tamaño de juegos: "+juegos.size());
             
