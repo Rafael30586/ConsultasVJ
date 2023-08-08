@@ -74,41 +74,53 @@ public class Panel extends JPanel implements ActionListener {
     }
     
     private class Servicio{
-        ProductoDAO dao = new ProductoDAO();
-        char opcion;
-        LinkedList<Producto> juegos;
-        String tercerParametro;
-        int numeroResultados=0;
-        String encabezado[] = {"ID","Título","Precio en dólares","Desarrolladora","Plataforma"};
+        private ProductoDAO dao = new ProductoDAO();
+        private char opcion;
+        private LinkedList<Producto> juegos;
+        private String tercerParametro;
+        private int numeroResultados=0;
+        private String encabezado[] = {"ID","Título","Precio en dólares","Desarrolladora","Plataforma"};
         //DefaultTableModel acepta nombre de columnas y cantidad de filas
+        private String tituloResultados="Juegos que ";
         
         public LinkedList<Producto> guardarResultados() throws Exception{
             if(menuNombreProducto.getSelectedItem().equals("Empieza con...")){
                 opcion = 'e';
+                tituloResultados += "empiezan con las letras "+cuadroNombreProducto.getText()
+                        .toUpperCase();
             }else if(menuNombreProducto.getSelectedItem().equals("Contiene...")){
                 opcion = 'c';
+                tituloResultados += "continen las letras "+cuadroNombreProducto.getText()
+                        .toUpperCase();
             }else if(menuNombreProducto.getSelectedItem().equals("Termina con...")){
                 opcion = 't';
+                tituloResultados += "terminan con las letras "+cuadroNombreProducto.getText()
+                        .toUpperCase();
             }
             
             if(menuOrden.getSelectedItem().toString().equals("Alfabético")){
                 tercerParametro = "vj.nombre";
+                tituloResultados += " por orden alfabético ";
             }else if(menuOrden.getSelectedItem().toString().equals("Plataforma")){
                 tercerParametro = "p.nombre";
+                tituloResultados += " ordenados por plataforma ";
             }else{
                 tercerParametro = "ds.nombre";
+                tituloResultados += " ordenados por desarrolladora ";
             }
             
             if(menuPlataforma.getSelectedItem().equals("Todas")){
                 juegos = dao
                         .listarProductos(opcion, cuadroNombreProducto
                                 .getText(), tercerParametro);
+                tituloResultados += "para todas las plataformas.";
             
             }else{
                 juegos = dao
                         .listarJuegosPlataforma(opcion, cuadroNombreProducto
                                 .getText(), menuPlataforma
                                         .getSelectedItem().toString(),tercerParametro);
+                tituloResultados += "para "+menuPlataforma.getSelectedItem();
             
             }
             return juegos;
@@ -146,6 +158,10 @@ public class Panel extends JPanel implements ActionListener {
 
         public int getNumeroResultados() {
             return numeroResultados;
+        }
+
+        public String getTituloResultados() {
+            return tituloResultados;
         }
         
     }
@@ -278,7 +294,7 @@ public class Panel extends JPanel implements ActionListener {
                 JOptionPane.showMessageDialog(null, "No hay resultados para mostrar");
             
             }else{
-            ventanaResultados = new JFrame(); //disminuir altura
+            ventanaResultados = new JFrame(servicio.getTituloResultados()); //disminuir altura
             Rectangle r = ConsultasVJ.ventana.getBounds();
             ventanaResultados.setBounds((int)r.getX(),(int)r.getY()+((int)r.getHeight()),((int)r
                     .getWidth()+300),300); //la altura dependerá de los resultados obtenidos
