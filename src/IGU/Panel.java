@@ -86,16 +86,33 @@ public class Panel extends JPanel implements ActionListener {
         public LinkedList<Producto> guardarResultados() throws Exception{
             if(menuNombreProducto.getSelectedItem().equals("Empieza con...")){
                 opcion = 'e';
-                tituloResultados += "empiezan con las letras "+cuadroNombreProducto.getText()
+                if(cuadroNombreProducto.getText().length()==1){
+                    tituloResultados += "empiezan con la letra "+cuadroNombreProducto.getText()
                         .toUpperCase();
+                }else{
+                    tituloResultados += "empiezan con las letras "+cuadroNombreProducto.getText()
+                        .toUpperCase();
+                }
+                
             }else if(menuNombreProducto.getSelectedItem().equals("Contiene...")){
                 opcion = 'c';
-                tituloResultados += "continen las letras "+cuadroNombreProducto.getText()
+                if(cuadroNombreProducto.getText().length()==1){
+                    tituloResultados += "contienen la letra "+cuadroNombreProducto.getText()
                         .toUpperCase();
+                }else{
+                    tituloResultados += "contienen las letras "+cuadroNombreProducto.getText()
+                        .toUpperCase();
+                }
+                
             }else if(menuNombreProducto.getSelectedItem().equals("Termina con...")){
                 opcion = 't';
-                tituloResultados += "terminan con las letras "+cuadroNombreProducto.getText()
+                if(cuadroNombreProducto.getText().length()==1){
+                    tituloResultados += "terminan con la letra "+cuadroNombreProducto.getText()
                         .toUpperCase();
+                }else{
+                    tituloResultados += "terminan con las letras "+cuadroNombreProducto.getText()
+                        .toUpperCase();
+                }    
             }
             
             if(menuOrden.getSelectedItem().toString().equals("Alfabético")){
