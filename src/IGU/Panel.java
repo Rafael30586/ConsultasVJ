@@ -87,30 +87,30 @@ public class Panel extends JPanel implements ActionListener {
             if(menuNombreProducto.getSelectedItem().equals("Empieza con...")){
                 opcion = 'e';
                 if(cuadroNombreProducto.getText().length()==1){
-                    tituloResultados += "empiezan con la letra "+cuadroNombreProducto.getText()
+                    tituloResultados += "empiezan con el caracter "+cuadroNombreProducto.getText()
                         .toUpperCase();
                 }else{
-                    tituloResultados += "empiezan con las letras "+cuadroNombreProducto.getText()
+                    tituloResultados += "empiezan con los caracteres "+cuadroNombreProducto.getText()
                         .toUpperCase();
                 }
                 
             }else if(menuNombreProducto.getSelectedItem().equals("Contiene...")){
                 opcion = 'c';
                 if(cuadroNombreProducto.getText().length()==1){
-                    tituloResultados += "contienen la letra "+cuadroNombreProducto.getText()
+                    tituloResultados += "contienen el caracter "+cuadroNombreProducto.getText()
                         .toUpperCase();
                 }else{
-                    tituloResultados += "contienen las letras "+cuadroNombreProducto.getText()
+                    tituloResultados += "contienen los caracteres "+cuadroNombreProducto.getText()
                         .toUpperCase();
                 }
                 
             }else if(menuNombreProducto.getSelectedItem().equals("Termina con...")){
                 opcion = 't';
                 if(cuadroNombreProducto.getText().length()==1){
-                    tituloResultados += "terminan con la letra "+cuadroNombreProducto.getText()
+                    tituloResultados += "terminan con el caracter "+cuadroNombreProducto.getText()
                         .toUpperCase();
                 }else{
-                    tituloResultados += "terminan con las letras "+cuadroNombreProducto.getText()
+                    tituloResultados += "terminan con los caracteres "+cuadroNombreProducto.getText()
                         .toUpperCase();
                 }    
             }
@@ -316,11 +316,13 @@ public class Panel extends JPanel implements ActionListener {
             ventanaResultados.setBounds((int)r.getX(),(int)r.getY()+((int)r.getHeight()),((int)r
                     .getWidth()+300),300); //la altura dependerá de los resultados obtenidos
             ventanaResultados.setResizable(true);
+            //ventanaResultados.setBackground(this.getBackground());
             
             resultados.setBackground(this.getBackground());
             resultados.setForeground(botonConsulta.getBackground());
             
             scroll = new JScrollPane(resultados);
+            //scroll.setBackground(this.getBackground());
             
             ventanaResultados.add(scroll);
             //ventanaResultados.add(resultados);
