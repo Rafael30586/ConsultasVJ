@@ -304,7 +304,10 @@ public class Panel extends JPanel implements ActionListener {
             try {
                 servicio.mostrarResultados();
             } catch (Exception ex) {
-                Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
+                //Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null,"Hubo un problema con la conexión de "
+                        + "base de datos o ha insertado caracteres no "
+                        + "permitidos","Aviso",JOptionPane.ERROR_MESSAGE);
             }
             
             if(servicio.getNumeroResultados()==0){
